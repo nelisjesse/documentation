@@ -3,114 +3,89 @@
   "info": {
     "title": "BonResto API",
     "version": "1.0.0",
-    "description": "Beheer reserveringen en controleer beschikbaarheid voor BonResto restaurants.",
-    "contact": {
-      "name": "BonResto Support",
-      "email": "support@besdirect.nl"
-    }
+    "description": "Welcome to the BonResto API documentation.\n\nUse this API to manage restaurant integrations, test connectivity, and sync data.\n\n### Authentication\nAll endpoints require a `Bearer Token`. Include this in your header:\n`Authorization: Bearer YOUR_API_KEY`"
   },
   "servers": [
     {
       "url": "https://api.bonresto.nl",
-      "description": "Productie Server"
+      "description": "Production Server"
     }
   ],
   "components": {
     "securitySchemes": {
       "BearerAuth": {
         "type": "http",
-        "scheme": "bearer"
+        "scheme": "bearer",
+        "bearerFormat": "API Key"
       }
     },
     "schemas": {
-      "Reservation": {
+      "StatusResponse": {
         "type": "object",
         "properties": {
-          "id": { "type": "string", "example": "res_98765" },
-          "customer_name": { "type": "string", "example": "Bas de Groot" },
-          "date": { "type": "string", "format": "date", "example": "2024-12-25" },
-          "guests": { "type": "integer", "example": 4 }
+          "status": {
+            "type": "string",
+            "example": "success"
+          },
+          "message": {
+            "type": "string",
+            "example": "Connection valid"
+          }
+        }
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "error"
+          },
+          "message": {
+            "type": "string",
+            "example": "Invalid API Key"
+          }
         }
       }
     }
   },
-  "security": [{ "BearerAuth": [] }],
+  "security": [
+    {
+      "BearerAuth": []
+    }
+  ],
   "tags": [
-    { "name": "System", "description": "Status en connectiviteit" },
-    { "name": "Reservations", "description": "Beheer restaurant reserveringen" }
+    {
+      "name": "System",
+      "description": "Endpoints for system status and connectivity."
+    }
   ],
   "paths": {
     "/connect": {
       "get": {
-        "tags": ["System"],
-        "summary": "Verbinding Testen",
+        "tags": [
+          "System"
+        ],
+        "summary": "Test Connection",
+        "description": "Verifies if the provided API Key is valid and the BonResto server is reachable.",
         "operationId": "checkConnection",
         "responses": {
-          "200": { "description": "OK" }
-        }
-      }
-    },
-    "/availability": {
-      "get": {
-        "tags": ["Reservations"],
-        "summary": "Check Beschikbaarheid",
-        "description": "Controleer of er tafels vrij zijn op een specifieke datum.",
-        "parameters": [
-          {
-            "name": "date",
-            "in": "query",
-            "required": true,
-            "schema": { "type": "string", "format": "date" },
-            "example": "2024-12-25"
-          },
-          {
-            "name": "guests",
-            "in": "query",
-            "schema": { "type": "integer" },
-            "example": 2
-          }
-        ],
-        "responses": {
           "200": {
-            "description": "Lijst met beschikbare tijdsloten",
+            "description": "OK - Connection successful and API key is valid.",
             "content": {
               "application/json": {
-                "example": { "available_slots": ["18:00", "19:00", "20:30"] }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/reservations": {
-      "post": {
-        "tags": ["Reservations"],
-        "summary": "Nieuwe Reservering",
-        "description": "Maak direct een nieuwe boeking aan in het systeem.",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": ["customer_name", "date", "time", "guests"],
-                "properties": {
-                  "customer_name": { "type": "string", "example": "Bas de Groot" },
-                  "email": { "type": "string", "example": "bas@email.nl" },
-                  "date": { "type": "string", "example": "2024-12-25" },
-                  "time": { "type": "string", "example": "19:00" },
-                  "guests": { "type": "integer", "example": 4 }
+                "schema": {
+                  "$ref": "#/components/schemas/StatusResponse"
                 }
               }
             }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "Reservering aangemaakt",
+          },
+          "401": {
+            "description": "Unauthorized - The API key is invalid or missing.",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/Reservation" }
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
               }
             }
           }
