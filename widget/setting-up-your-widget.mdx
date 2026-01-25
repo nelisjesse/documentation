@@ -1,0 +1,72 @@
+---
+title: "Widget Configuratie"
+description: "Gebruik de BonResto Web SDK om de reserveringsmodule te integreren op uw website."
+---
+
+## 1. Implementatie
+
+Kopieer de onderstaande code en plaats deze op elke pagina waar de widget actief moet zijn. Wij adviseren om dit in de `<head>` sectie of vlak voor de sluitende `</body>` tag te plaatsen.
+
+HTML
+
+```javascript
+<script>
+  window.BonRestoConfig = { 
+    id: '1769290529477x762606792755118100' // Uw Restaurant ID
+  };
+</script>
+<script src="https://bonresto.nl/widget/test.js?nr=e3dsdf4sdhaafdf2" async></script>
+```
+
+> **Opmerking:** Het script laadt asynchroon (`async`) om de performance van uw website niet te beïnvloeden.
+
+## 2. Parameters
+
+Het `window.BonRestoConfig` object accepteert de volgende instellingen:
+
+| **Parameter** | **Type** | **Verplicht** | **Beschrijving**                                                                                  |
+| :------------ | :------- | :------------ | :------------------------------------------------------------------------------------------------ |
+| `id`          | String   | **Ja**        | De unieke identificatie van het restaurant.                                                       |
+| `language`    | String   | Nee           | Forceer een taal (`'nl'`, `'en'`, `'fr'`, `'de'`). Standaard wordt de browserinstelling gebruikt. |
+| `color`       | String   | Nee           | Een hex-code (bijv. `'#e63946'`) voor de initiële laadstatus.                                     |
+
+**Voorbeeld met opties:**
+
+```javascript
+<script>
+  window.BonRestoConfig = { 
+    id: '1769290529477x762606792755118100',
+    language: 'en',
+    color: '#000000'
+};
+</script>
+<script src="https://bonresto.nl/widget/test.js?nr=e3dsdf4sdhaafdf2" async></script>
+```
+
+## 3. JavaScript API
+
+De widget creëert een globaal `BonResto` object waarmee u de widget programmatisch kunt aansturen. Dit is handig voor custom knoppen in uw header of navigatiemenu.
+
+### Beschikbare methodes
+
+| **Methode**         | **Beschrijving**                                     |
+| :------------------ | :--------------------------------------------------- |
+| `BonResto.open()`   | Opent de widget.                                     |
+| `BonResto.close()`  | Sluit de widget.                                     |
+| `BonResto.toggle()` | Opent de widget als deze gesloten is, en vice versa. |
+
+### Voorbeelden
+
+**Custom knop:**
+
+```html
+<button onclick="BonResto.open()">Reserveer nu</button>
+```
+
+**Link in navigatiemenu:**
+
+HTML
+
+```html
+<a href="#" onclick="BonResto.open(); return false;">Reserveren</a>
+```
