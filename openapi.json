@@ -1,0 +1,100 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "BonResto API",
+    "version": "1.0.0",
+    "description": "Welkom bij de BonResto API documentatie.\n\nGebruik deze API om restaurant-integraties te beheren, verbindingen te testen en data te synchroniseren.\n\n### Authenticatie\nAlle endpoints vereisen een `Bearer Token`. Voeg deze toe aan de header:\n`Authorization: Bearer JOUW_API_KEY`",
+    "contact": {
+      "name": "BonResto Support",
+      "email": "support@besdirect.nl"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://api.bonresto.nl",
+      "description": "Productie Server"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "API Key"
+      }
+    },
+    "schemas": {
+      "SuccessResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "success"
+          },
+          "message": {
+            "type": "string",
+            "example": "Connection valid"
+          }
+        }
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "error"
+          },
+          "message": {
+            "type": "string",
+            "example": "Invalid API Key"
+          }
+        }
+      }
+    }
+  },
+  "security": [
+    {
+      "BearerAuth": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "System",
+      "description": "Endpoints voor systeemstatus en connectiviteit."
+    }
+  ],
+  "paths": {
+    "/connect": {
+      "get": {
+        "tags": [
+          "System"
+        ],
+        "summary": "Verbinding Testen",
+        "description": "Controleert of je API Key geldig is en of de BonResto server bereikbaar is. Ideaal voor debugging en initiële setup in tools zoals Bubble.io.",
+        "operationId": "checkConnection",
+        "responses": {
+          "200": {
+            "description": "Verbinding succesvol en API key is geldig.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuccessResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authenticatie mislukt. De API key is ongeldig of ontbreekt.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
