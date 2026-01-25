@@ -1,0 +1,59 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "BonResto API",
+    "description": "API voor het beheren van BonResto connecties.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.bonresto.nl/",
+      "description": "Productie server"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  },
+  "security": [
+    {
+      "BearerAuth": []
+    }
+  ],
+  "paths": {
+    "/connect": {
+      "get": {
+        "summary": "Test connection and API key",
+        "description": "Checks if the provided Bearer token is valid and the API is reachable.",
+        "responses": {
+          "200": {
+            "description": "Connection successful and API key is valid",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "success",
+                  "message": "Connection valid"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid or missing API Key",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "error",
+                  "message": "Invalid API Key"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
