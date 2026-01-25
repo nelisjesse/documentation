@@ -1,13 +1,15 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "theme": "almond",
   "name": "BonResto Documentatie",
+  "openapi": "openapi.json",
+  "theme": "almond",
   "colors": {
     "primary": "#ff6c09",
     "light": "#ff6c09",
     "dark": "#ff6c09"
   },
   "favicon": "/images/BonResto(500x500px)(1).png",
+  "logo": "/images/BonResto(1).png",
   "navigation": {
     "groups": [
       {
@@ -15,10 +17,15 @@
         "pages": [
           "widget/Widget-Configuratie"
         ]
+      },
+      {
+        "group": "API Reference",
+        "pages": [
+          "api-reference/connect"
+        ]
       }
     ]
   },
-  "logo": "/images/BonResto(1).png",
   "navbar": {
     "links": [
       {
@@ -32,28 +39,11 @@
       "href": "https://app.bonresto.nl"
     }
   },
-  "contextual": {
-    "options": [
-     "copy",
-     "view",
-     "chatgpt",
-     "claude",
-     "perplexity",
-     "mcp",
-     "cursor",
-     "vscode"
-   ]
-  },
   "appearance": {
     "strict": true,
     "default": "light"
   },
   "fonts": {
     "family": "Raleway"
-  },
-  "errors": {
-    "404": {
-      "redirect": true
-    }
   }
 }
