@@ -2,7 +2,7 @@
   "openapi": "3.0.0",
   "info": {
     "title": "BonResto API",
-    "description": "API voor het beheren van BonResto connecties.",
+    "description": "API voor connectie-validatie en debugging.",
     "version": "1.0.0"
   },
   "servers": [
@@ -15,23 +15,24 @@
     "securitySchemes": {
       "BearerAuth": {
         "type": "http",
-        "scheme": "bearer"
+        "scheme": "bearer",
+        "description": "Voer je API Key in als Bearer token"
       }
     }
   },
-  "security": [
-    {
-      "BearerAuth": []
-    }
-  ],
   "paths": {
     "/connect": {
       "get": {
-        "summary": "Test connection and API key",
-        "description": "Checks if the provided Bearer token is valid and the API is reachable.",
+        "summary": "Check API Connection",
+        "description": "Valideert de API key en controleert of de server bereikbaar is.",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
         "responses": {
           "200": {
-            "description": "Connection successful and API key is valid",
+            "description": "Geldige API Key",
             "content": {
               "application/json": {
                 "example": {
@@ -42,7 +43,7 @@
             }
           },
           "401": {
-            "description": "Invalid or missing API Key",
+            "description": "Ongeldige API Key",
             "content": {
               "application/json": {
                 "example": {
