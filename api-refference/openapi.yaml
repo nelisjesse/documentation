@@ -1,0 +1,36 @@
+openapi: "3.0.0"
+info:
+  title: "BonResto API"
+  version: "1.0.0"
+  description: "API voor het beheren van restaurant-integraties."
+servers:
+  - url: "https://api.bonresto.nl"
+    description: "Productie server"
+components:
+  securitySchemes:
+    bearerAuth:
+      type: "http"
+      scheme: "bearer"
+security:
+  - bearerAuth: []
+paths:
+  /connect:
+    get:
+      summary: "Verbinding Testen"
+      operationId: "getConnect"
+      description: "Controleert of je API Key geldig is en of de server reageert."
+      responses:
+        "200":
+          description: "Succesvol verbonden"
+          content:
+            application/json:
+              example:
+                status: "success"
+                message: "Connection valid"
+        "401":
+          description: "Ongeldige API Key"
+          content:
+            application/json:
+              example:
+                status: "error"
+                message: "Invalid API Key"
