@@ -45,5 +45,10 @@
   },
   "fonts": {
     "family": "Raleway"
+  },
+  "api": {
+    "playground": {
+      "display": "interactive"
+    }
   }
 }
