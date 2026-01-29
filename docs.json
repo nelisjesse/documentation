@@ -48,5 +48,10 @@
     "playground": {
       "display": "interactive"
     }
+  },
+  "integrations": {
+    "intercom": {
+      "appId": "naviv1oa"
+    }
   }
 }
