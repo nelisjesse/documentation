@@ -1,38 +1,52 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "name": "BonResto Documentatie",
-  "theme": "almond",
   "openapi": "openapi.json",
+  "theme": "almond",
   "colors": {
     "primary": "#ff6c09",
     "light": "#ff6c09",
     "dark": "#ff6c09"
   },
+  "favicon": "/images/BonResto(500x500px)(1).png",
+  "logo": "/images/BonResto(1).png",
   "navigation": {
-    "tabs": [
+    "groups": [
       {
-        "tab": "Documentatie",
-        "icon": "book-open",
-        "groups": [
-          {
-            "group": "Widget",
-            "pages": [
-              "widget/Widget-Configuratie"
-            ]
-          }
+        "group": "Widget",
+        "pages": [
+          "widget/Widget-Configuratie"
         ]
       },
       {
-        "tab": "API Reference",
-        "icon": "square-terminal",
-        "openapi": "openapi.json"
+        "group": "API Reference",
+        "pages": []
       }
     ]
   },
-  "favicon": "/images/BonResto(500x500px)(1).png",
-  "logo": "/images/BonResto(1).png",
+  "navbar": {
+    "links": [
+      {
+        "label": "Support",
+        "href": "mailto:support@besdirect.nl"
+      }
+    ],
+    "primary": {
+      "type": "button",
+      "label": "Dashboard",
+      "href": "https://app.bonresto.nl"
+    }
+  },
   "appearance": {
     "strict": true,
     "default": "light"
+  },
+  "fonts": {
+    "family": "Raleway"
+  },
+  "api": {
+    "playground": {
+      "display": "interactive"
+    }
   }
 }
